@@ -3,7 +3,7 @@ const HwSharderError = require('./HwSharderError')
 class Shard {
   /**
    * Shard Instance
-   * @param {*} ws
+   * @param {Websocket} ws
    */
   constructor (ws) {
     if (!(ws instanceof Websocket)) throw new HwSharderError('')
@@ -11,7 +11,6 @@ class Shard {
   }
 
   _registerEvents () {
-
   }
 }
 

@@ -5,7 +5,7 @@ const { Collection } = require('discord.js')
 class ShardingServer extends Server {
   /**
    * Server Options
-   * @typedef {{auth: string, port: number, shardCount: number}} serverOptions - Server Options Object
+   * @typedef {{ auth: string, port: number, shardCount: number }} serverOptions - Server Options Object
    */
   /**
    * @description Server Instance
@@ -17,10 +17,18 @@ class ShardingServer extends Server {
     if (!serverOptions.port) throw new HwSharderError('SERVER_PORT_REQUIRED')
     if (typeof serverOptions.port !== 'number') throw new HwSharderError('PORT_MUST_NUMBER')
     if (serverOptions.port < 1 || serverOptions.port > 65535) throw new HwSharderError('PORT_RANGE_ERROR')
-    if (!serverOptions.shardCount) throw new HwSharderError()
+    if (!serverOptions.shardCount) throw new HwSharderError('SHARDCOUNT_REQUIRED')
     super(Object.assign(serverOptions, webSocketServer))
     this.shards = new Collection()
     this.shardCount = serverOptions.shardCount
+  }
+
+  _registerEvents () {
+    this.on('connection', this.onWSConnection)
+  }
+
+  onWSConnection () {
+
   }
 }
 

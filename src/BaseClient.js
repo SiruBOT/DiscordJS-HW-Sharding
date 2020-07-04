@@ -8,10 +8,15 @@ class BaseClient extends Client {
   constructor (clientOptions, shardingOptions) {
     super()
     this.shard = new ShardingClient(this, shardingOptions)
+    this._login = this.login
   }
 
-  login () {
-
+  /**
+   * @description Initialize Sharding Websocket, Logins Discord's Gateway
+   * @param {String} token - Bot's Token
+   */
+  async login (token) {
+    await super.login(token)
   }
 }
 
