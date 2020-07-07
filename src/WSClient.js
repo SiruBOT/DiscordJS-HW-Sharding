@@ -4,7 +4,7 @@ const HwShardError = require('./HwSharderError')
 /**
  * @augments Websocket
  */
-class ShardLink extends Websocket {
+class WSClient extends Websocket {
   constructor (url, auth) {
     if (!auth) throw new HwShardError('AUTH_REQUIRED')
     if (typeof auth !== 'string') throw new HwShardError('AUTH_MUST_STRING')
@@ -12,4 +12,4 @@ class ShardLink extends Websocket {
   }
 }
 
-module.exports = ShardLink
+module.exports = WSClient

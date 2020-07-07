@@ -11,7 +11,8 @@ module.exports.errors = {
 
 module.exports.WSStatus = {
   DISCONNECTED: 'DISCONNECTED',
-  CONNECTED: 'CONNECTED'
+  CONNECTED: 'CONNECTED',
+  RECONNECTING: 'RECONNECTING'
 }
 
 module.exports.Headers = {

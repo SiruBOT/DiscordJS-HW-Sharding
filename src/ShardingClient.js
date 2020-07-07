@@ -1,6 +1,6 @@
 const { EventEmitter } = require('events')
 const { Client } = require('discord.js')
-const ShardLink = require('./ShardLink')
+const WSClient = require('./WSClient')
 const { WSStatus } = require('./Constant')
 const HwSharderError = require('./HwSharderError')
 class ShardingClient extends EventEmitter {
@@ -25,13 +25,22 @@ class ShardingClient extends EventEmitter {
     this.status = WSStatus.DISCONNECTED
     this.connect()
   }
-
+  
   /**
    * @description Connect To Websocket
+   * @param {Boolean} [reconnect=false] - Is reconnect or not
    */
-  connect () {
-    this.ws = new ShardLink(this.shardOptions.wsURL, this.shardOptions.auth)
-    this.ws.once('open', ())
+  connect (reconnect = false) {
+    if (reconnect) this.ws.terminate()
+    if (reconnect) this.status = WSStatus.RECONNECTING
+    this.ws = new WSClient(this.shardOptions.wsURL, this.shardOptions.auth)
+    this.ws.once('open', () => {
+      this.status = WSStatus.CONNECTED
+    })
+    this.ws.once('close', () => {
+      this.status = WSStatus.DISCONNECTED
+      this.connect(true)
+    })
   }
 }
 
