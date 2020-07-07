@@ -1,5 +1,7 @@
 const { EventEmitter } = require('events')
 const { Client } = require('discord.js')
+const ShardLink = require('./ShardLink')
+const { WSStatus } = require('./Constant')
 const HwSharderError = require('./HwSharderError')
 class ShardingClient extends EventEmitter {
   /**
@@ -16,10 +18,11 @@ class ShardingClient extends EventEmitter {
     if (typeof shardOptions.wsURL !== 'string') throw new HwSharderError('AUTH_MUST_STRING')
     if (!shardOptions.auth) throw new HwSharderError('AUTH_REQUIRED')
     if (typeof shardOptions.auth !== 'string') throw new HwSharderError('AUTH_MUST_STRING')
+    if (!(client instanceof Client)) throw new HwSharderError()
     super()
     this.client = client
-    this.state =
     this.shardOptions = shardOptions
+    this.status = WSStatus.DISCONNECTED
     this.connect()
   }
 
@@ -27,7 +30,8 @@ class ShardingClient extends EventEmitter {
    * @description Connect To Websocket
    */
   connect () {
-    this.ws = new Websocket(this.shardOptions.wsURL)
+    this.ws = new ShardLink(this.shardOptions.wsURL, this.shardOptions.auth)
+    this.ws.once('open', ())
   }
 }
 
