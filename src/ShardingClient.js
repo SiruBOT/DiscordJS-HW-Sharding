@@ -25,7 +25,7 @@ class ShardingClient extends EventEmitter {
     this.status = WSStatus.DISCONNECTED
     this.connect()
   }
-  
+
   /**
    * @description Connect To Websocket
    * @param {Boolean} [reconnect=false] - Is reconnect or not
