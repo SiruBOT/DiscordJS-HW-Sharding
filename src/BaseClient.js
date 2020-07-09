@@ -1,14 +1,16 @@
 const { Client } = require('discord.js')
 const ShardingClient = require('./ShardingClient')
+const HWSharderError = require('./HwSharderError')
 class BaseClient extends Client {
   /**
-   * @param {*} clientOptions - Discord.JS Client Options
+   * @param {Object} clientOptions - Discord.JS Client Options
    * @param {*} shardingOptions
    */
   constructor (clientOptions, shardingOptions) {
-    super()
+    if (clientOptions.shardCount) throw new HWSharderError('CONSTRUCTOR_NO_SHARDCOUNT')
+    if (clientOptions.shards) throw new HWSharderError('CONSTRUCTOR_NO_SHARDS')
+    super(clientOptions)
     this.shard = new ShardingClient(this, shardingOptions)
-    this._login = this.login
   }
 
   /**
