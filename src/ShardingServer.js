@@ -1,6 +1,8 @@
 const { Server } = require('ws')
 const HwSharderError = require('./HwSharderError')
-const { webSocketServer } = require('./Constant').baseOptions
+const constant = require('./Constant')
+const { webSocketServer } = constant.BaseOptions
+const { Headers, Constants, events } = constant
 const { Collection } = require('discord.js')
 class ShardingServer extends Server {
   /**
@@ -19,16 +21,29 @@ class ShardingServer extends Server {
     if (serverOptions.port < 1 || serverOptions.port > 65535) throw new HwSharderError('PORT_RANGE_ERROR')
     if (!serverOptions.shardCount) throw new HwSharderError('SHARDCOUNT_REQUIRED')
     super(Object.assign(serverOptions, webSocketServer))
+    this.serverOptions = serverOptions
     this.shards = new Collection()
     this.shardCount = serverOptions.shardCount
   }
 
   _registerEvents () {
     this.on('connection', this.onWSConnection)
+    this.on('listening', this.onListening)
   }
 
-  onWSConnection () {
+  onListening () {
+    this.emit(events.DEBUG, `${Constants.DEBUG} ${Constants.LISTENING} Listening on ${this.address().address}`)
+  }
 
+  /**
+   * Websocket connection event
+   * @param {WebSocket} ws - Websocket Instance
+   */
+  onWSConnection (ws, req) {
+    if (req.headers[Headers.AUTH] !== this.serverOptions.auth) {
+      this.emit(events.DEBUG, `${Constants.DEBUG} Authentication Failed from ${req.socket.remoteAddress}`)
+      ws.close(401, 'Authentication Failed')
+    }
   }
 }
 
