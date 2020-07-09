@@ -18,7 +18,7 @@ class ShardingClient extends EventEmitter {
     if (typeof shardOptions.wsURL !== 'string') throw new HwSharderError('AUTH_MUST_STRING')
     if (!shardOptions.auth) throw new HwSharderError('AUTH_REQUIRED')
     if (typeof shardOptions.auth !== 'string') throw new HwSharderError('AUTH_MUST_STRING')
-    if (!(client instanceof Client)) throw new HwSharderError()
+    if (!(client instanceof Client)) throw new HwSharderError('CLIENT_INSTANCEOF_DJS')
     super()
     this.client = client
     this.shardOptions = shardOptions
