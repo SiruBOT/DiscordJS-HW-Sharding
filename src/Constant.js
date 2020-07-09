@@ -6,7 +6,24 @@ module.exports.errors = {
   AUTH_REQUIRED: () => 'Server Auth Key Required (String)',
   AUTH_MUST_STRING: () => 'Server Auth must be a String',
   INSTANCE_WS: () => 'Shard constructor `ws` is must be instance of Websocket',
-  SHARDCOUNT_REQUIRED: () => 'Shard Count Required > 1'
+  SHARDCOUNT_REQUIRED: () => 'Shard Count Required > 1',
+  CLIENT_INSTANCEOF_DJS: () => 'Client instance is must be instance of discord.js\'s Client',
+  CLIENT_INSTANCEOF_WS: () => 'Ws instance is must be instance of ws',
+  CONSTRUCTOR_NO_SHARDCOUNT: () => 'You can\'t set manually set `shardCount` constructor in BaseClient constructor',
+  CONSTRUCTOR_NO_SHARDS: () => 'You can\'t set manually set `shards` constructor in BaseClient constructor'
+}
+
+module.exports.events = {
+  DEBUG: 'debug'
+}
+
+module.exports.Constants = {
+  DEBUG: '[DEBUG]',
+  WS: '[WS]',
+  SHARD: (id) => `[SHARD ${id}]`,
+  INCOME: '[INCOME]',
+  ERROR: '[ERROR]',
+  LISTENING: '[LISTENING]'
 }
 
 module.exports.WSStatus = {
@@ -19,7 +36,7 @@ module.exports.Headers = {
   AUTH: 'Authorization'
 }
 
-module.exports.baseOptions = {
+module.exports.BaseOptions = {
   webSocketServer: {
     noServer: false
   }
