@@ -1,4 +1,5 @@
 module.exports = {
   serverPort: 3000,
-  auth: 'youshallnotpass'
+  auth: 'youshallnotpass',
+  shardCount: 2
 }
