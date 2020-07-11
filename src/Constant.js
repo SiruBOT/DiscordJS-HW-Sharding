@@ -10,7 +10,8 @@ module.exports.errors = {
   CLIENT_INSTANCEOF_DJS: () => 'Client instance is must be instance of discord.js\'s Client',
   CLIENT_INSTANCEOF_WS: () => 'Ws instance is must be instance of ws',
   CONSTRUCTOR_NO_SHARDCOUNT: () => 'You can\'t set manually set `shardCount` constructor in BaseClient constructor',
-  CONSTRUCTOR_NO_SHARDS: () => 'You can\'t set manually set `shards` constructor in BaseClient constructor'
+  CONSTRUCTOR_NO_SHARDS: () => 'You can\'t set manually set `shards` constructor in BaseClient constructor',
+  SHARDCOUNT_MORE_ONE: () => 'shardCount must be greater than 1'
 }
 
 module.exports.events = {

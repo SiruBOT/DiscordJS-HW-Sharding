@@ -20,19 +20,17 @@ class ShardingServer extends Server {
     if (typeof serverOptions.port !== 'number') throw new HwSharderError('PORT_MUST_NUMBER')
     if (serverOptions.port < 1 || serverOptions.port > 65535) throw new HwSharderError('PORT_RANGE_ERROR')
     if (!serverOptions.shardCount) throw new HwSharderError('SHARDCOUNT_REQUIRED')
+    if (serverOptions.shardCount < 1) throw new HwSharderError('SHARDCOUNT_MORE_ONE')
     super(Object.assign(serverOptions, webSocketServer))
     this.serverOptions = serverOptions
     this.shards = new Collection()
     this.shardCount = serverOptions.shardCount
-  }
-
-  _registerEvents () {
     this.on('connection', this.onWSConnection)
     this.on('listening', this.onListening)
   }
 
   onListening () {
-    this.emit(events.DEBUG, `${Constants.DEBUG} ${Constants.LISTENING} Listening on ${this.address().address}`)
+    this.emit(events.DEBUG, `${Constants.DEBUG} ${Constants.LISTENING} Listening on port ${this.address().port}/`)
   }
 
   /**
@@ -42,7 +40,7 @@ class ShardingServer extends Server {
   onWSConnection (ws, req) {
     if (req.headers[Headers.AUTH] !== this.serverOptions.auth) {
       this.emit(events.DEBUG, `${Constants.DEBUG} Authentication Failed from ${req.socket.remoteAddress}`)
-      ws.close(401, 'Authentication Failed')
+      ws.close(4010, 'Authentication Failed')
     }
   }
 }
