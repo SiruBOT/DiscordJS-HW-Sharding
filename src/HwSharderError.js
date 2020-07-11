@@ -5,7 +5,7 @@ class HwSharderError extends Error {
    * @param {String} errName - Error Name
    */
   constructor (errName, ...args) {
-    super(`[${errName}] ` + co.errors[errName](...args))
+    super(co.errors[errName] ? `[${errName}] ` + co.errors[errName](...args) : errName)
   }
 }
 
