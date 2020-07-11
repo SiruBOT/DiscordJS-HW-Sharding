@@ -37,7 +37,8 @@ class ShardingClient extends EventEmitter {
     this.ws.once('open', () => {
       this.status = WSStatus.CONNECTED
     })
-    this.ws.once('close', () => {
+    this.ws.once('close', (code, reason) => {
+      if (code === 4010) throw new HwSharderError(reason)
       this.status = WSStatus.DISCONNECTED
       this.connect(true)
     })
