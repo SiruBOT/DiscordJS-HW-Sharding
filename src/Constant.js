@@ -11,7 +11,10 @@ module.exports.errors = {
   CLIENT_INSTANCEOF_WS: () => 'Ws instance is must be instance of ws',
   CONSTRUCTOR_NO_SHARDCOUNT: () => 'You can\'t set manually set `shardCount` constructor in BaseClient constructor',
   CONSTRUCTOR_NO_SHARDS: () => 'You can\'t set manually set `shards` constructor in BaseClient constructor',
-  SHARDCOUNT_MORE_ONE: () => 'shardCount must be greater than 1'
+  SHARDCOUNT_MORE_ONE: () => 'shardCount must be greater than 1',
+  MAXTRIES_MORE_ONE: () => 'maxReconnectTries must be greater than 1',
+  MAXTRIES_NUMBER: () => 'maxReconnectTries must be a number',
+  MAX_RECONNECT_TRIES: (num) => `Current retry attempts have exceeded the maximum number of retries ${num}`
 }
 
 module.exports.events = {
@@ -19,6 +22,8 @@ module.exports.events = {
 }
 
 module.exports.Constants = {
+  CONNECT: '[CONNECT]',
+  RECONNECT: '[RECONNECT]',
   DEBUG: '[DEBUG]',
   WS: '[WS]',
   SHARD: (id) => `[SHARD ${id}]`,
