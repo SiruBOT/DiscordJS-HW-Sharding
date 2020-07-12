@@ -34,7 +34,7 @@ module.exports.WSStatus = {
 }
 
 module.exports.Headers = {
-  AUTH: 'Authorization'
+  AUTH: 'authorization'
 }
 
 module.exports.BaseOptions = {
