@@ -30,7 +30,7 @@ class ShardingServer extends Server {
   }
 
   onListening () {
-    this.emit(events.DEBUG, `${Constants.DEBUG} ${Constants.LISTENING} Listening on port ${this.address().port}/`)
+    this.emit(events.DEBUG, `${Constants.DEBUG} ${Constants.LISTENING} Listening on port ${this.address().port}`)
   }
 
   /**
