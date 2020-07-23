@@ -1,6 +1,6 @@
 {
   "name": "discordjs-hw-sharding",
-  "version": "0.1.0",
+  "version": "0.1.01",
   "description": "Hardware Sharding Discord Js Client",
   "main": "index.js",
   "dependencies": {
