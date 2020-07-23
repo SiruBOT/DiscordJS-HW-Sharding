@@ -15,6 +15,9 @@
   "scripts": {
     "test": "mocha ./tests"
   },
+  "standard": {
+    "env": ["mocha"]
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SiruBOT/DiscordJS-HW-Sharding.git"
