@@ -14,11 +14,11 @@ class ShardingClient extends EventEmitter {
    * @param {shardOptions} shardOptions - ShardingClient Options
    */
   constructor (client, shardOptions = {}) {
+    if (!(client instanceof Client)) throw new HwSharderError('CLIENT_INSTANCEOF_DJS')
     if (!shardOptions.wsURL) throw new HwSharderError('WS_URL_REQUIRED')
     if (typeof shardOptions.wsURL !== 'string') throw new HwSharderError('AUTH_MUST_STRING')
     if (!shardOptions.auth) throw new HwSharderError('AUTH_REQUIRED')
     if (typeof shardOptions.auth !== 'string') throw new HwSharderError('AUTH_MUST_STRING')
-    if (!(client instanceof Client)) throw new HwSharderError('CLIENT_INSTANCEOF_DJS')
     if (shardOptions.maxReconnectTries) {
       if (typeof shardOptions.maxReconnectTries !== 'number') throw new HwSharderError('MAXTRIES_NUMBER')
       if (shardOptions.maxReconnectTries < 1) throw new HwSharderError('MAXTRIES_MORE_ONE')
