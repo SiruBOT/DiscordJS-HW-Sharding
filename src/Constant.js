@@ -18,7 +18,9 @@ module.exports.errors = {
 }
 
 module.exports.events = {
-  DEBUG: 'debug'
+  DEBUG: 'debug',
+  LISTENING: 'listen',
+  CLOSE: 'close'
 }
 
 module.exports.Constants = {
